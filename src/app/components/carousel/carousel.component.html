@@ -1,15 +1,32 @@
-<div class="start">Hi</div>
+<!-- <div class="carousel">
+	<div *ngFor="let slide of slides; let i = index" [@slideState]="getAnimationSlideState(i)" class="slide">
+	  <ng-container *ngTemplateOutlet="slideTemplateRef; context: {$implicit: slide}"></ng-container>
+	</div>
+  </div>
+  
+  <div *ngIf="isNavigationVisible" class="navigation">
+	<button (click)="select(activeSlides!.previous)">Prev</button>
+	<button (click)="select(activeSlides!.next)">Next</button>
+  </div>
+  
+  <div *ngIf="isThumbnailsVisible" class="thumbnails">
+	<ng-container *ngFor="let slide of slides">
+	  <ng-container *ngTemplateOutlet="thumbnailTemplateRef; context: {$implicit: slide}"></ng-container>
+	</ng-container>
+  </div>
+   -->
 
-<!-- <div class="carousel"> -->
+   <div class="carousel">
 	<!-- slides -->
-	<!-- <ul class="slides">
-		<li class="slide" *ngFor="let slide of slides; let i = index;" [@slideState]="getAnimationSlideState(i)" (@slideState.start)="animationStarted($event)"
+	<ul class="slides">
+		<li class="slide" *ngFor="let slide of slides; 
+		let i = index;" [@slideState]="getAnimationSlideState(i)" (@slideState.start)="animationStarted($event)"
         (@slideState.done)="animationDone($event)">
 			<ng-container *ngTemplateOutlet="slideTemplateRef; context: { $implicit: slide }"></ng-container>
 		</li>
-	</ul> -->
+	</ul>
 	<!-- navigations & thumbnails -->
-	<!-- <div class="navigations">
+	<div class="navigations">
 		<button type="button" (click)="select(activeSlides.previous)" *ngIf="slides.length > 1 && isNavigationVisible">
         <span>left</span> 
     </button>
@@ -24,4 +41,4 @@
         <span>right</span> 
     </button>
 	</div>
-</div> -->
+</div>

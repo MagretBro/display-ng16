@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 
 const routes: Routes = [
+  { path: '', component: AppComponent }, // Домашняя страница
   { path: 'carousel', component: CarouselComponent } // Страница с каруселью
 ];
 

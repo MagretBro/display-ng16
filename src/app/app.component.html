@@ -1,3 +1,34 @@
+<app-carousel [autoPlayDuration]="5000"
+              [animation]="Animation.Slide"
+              [isNavigationVisible]="true"
+              [isThumbnailsVisible]="true"
+              [slides]="slides"
+              [slideTemplateRef]="slide"
+              [thumbnailTemplateRef]="thumbnail">
+</app-carousel>
+
+<ng-template #slide let-slide>
+  <div [ngStyle]="{
+    'background-size': 'cover',
+    'background-image': 'url(' + slide.url + ')',
+    'background-repeat': 'no-repeat',
+    'width': '100%',
+    'height': '100%'
+  }">
+  </div>
+</ng-template>
+
+<ng-template #thumbnail let-slide>
+  <div [ngStyle]="{
+    'background-size': 'cover',
+    'background-image': 'url(' + slide.url + ')',
+    'background-repeat': 'no-repeat',
+    'background-position': 'center center',
+    'width': '100px',
+    'height': '50px'
+  }"></div>
+</ng-template>
+
 <!-- <nav>
   <a routerLink="/">Home</a>
   <a routerLink="/carousel">Carousel</a>
@@ -37,5 +68,4 @@
       </div>
 </ng-template> -->
 
-<div>Hi</div>
 <!-- <router-outlet></router-outlet> -->
