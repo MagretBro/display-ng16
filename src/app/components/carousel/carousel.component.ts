@@ -84,11 +84,20 @@ export class CarouselComponent implements OnInit, OnDestroy {
     this._activeSlides = activeSlides;
   }
 
+  private _visibleSlides: { url: string } [] = [];
+  get visibleSlides() {
+    return this._visibleSlides;
+  }
+  set visibleSlides(visibleSlides: { url: string } []) {
+    this._visibleSlides = visibleSlides;
+  }
+
   constructor(private cd: ChangeDetectorRef, private differs: KeyValueDiffers) { }
 
   ngOnInit(): void {
     if (this.slides.length) {
       this.activeSlides = this.getPreviousCurrentNextIndexes(0);
+      this.visibleSlides = this.getVisibleSlides(0);
       this.differ = this.differs.find(this.activeSlides).create();
       if (this.slides.length > 1 && this.autoPlayDuration > 0) {
         this.startTimer();
@@ -103,8 +112,10 @@ export class CarouselComponent implements OnInit, OnDestroy {
 
   select(index: number): void {
     this.resetTimer();
+    const oldIndex = this.activeSlides.current; // Сохранение текущего индекса
     this.activeSlides = this.getPreviousCurrentNextIndexes(index);
-    this.direction = this.getDirection(this.activeSlides.current, index);
+    this.visibleSlides = this.getVisibleSlides(index);
+    this.direction = this.getDirection(oldIndex, index);
     this.startTimer();
 
     if (this.differ?.diff(this.activeSlides)) { // Использование опциональной цепочки
@@ -134,32 +145,58 @@ export class CarouselComponent implements OnInit, OnDestroy {
     };
   }
 
-  getAnimationSlideState(index: number) {
-    return index === this.activeSlides.current ? 'current' : index === this.activeSlides.next ? 'next' : index === this.activeSlides.previous ? 'previous' : '';
+  getVisibleSlides(startIndex: number): { url: string } [] {
+    const visibleSlides = [];
+    const visibleCount = 5;
+    for(let i=0; i < visibleCount; i++) {
+      const index = (startIndex + i) % this.slides.length;
+      visibleSlides.push(this.slides[index]);
+    }
+    return visibleSlides;
   }
 
-  startTimer(): void {
-    this.resetTimer();
+  getAnimationSlideState(index: number) {
+    const data = this.activeSlides;
 
-    if (this.autoPlayDuration > 0) {
-      this.currentInterval = setInterval(() => this.select(this.activeSlides.next), this.autoPlayDuration);
-    }
+    return (index === data.current)
+    ? 'current'
+    : (index === data.previous)
+    ? 'previous'
+    : 'next';
+  }
+
+  nextSlide(): void {
+    const index = this.activeSlides.current + 1;
+    this.select(index >= this.slides.length ? 0 : index);
+  }
+
+  prevSlide(): void {
+    const index = this.activeSlides.current - 1;
+    this.select(index < 0 ? this.slides.length - 1 : index);
   }
 
   resetTimer(): void {
     if (this.currentInterval) {
       clearInterval(this.currentInterval);
-      this.currentInterval = null;
     }
   }
 
-  animationDone(event: any) {
-    // Реализация логики при завершении анимации, если необходима
+
+  startTimer(): void {
+    this.resetTimer();
+
+    if (this.autoPlayDuration > 0) {
+      this.currentInterval = setInterval(() => {
+        this.direction = Direction.Next;
+        this.select(this.activeSlides.next);
+      },
+       this.autoPlayDuration);
+    }
   }
 
-  animationStarted(event: any) {
-    // Реализация логики при старте анимации, если необходима
-  }
+
+  animationDone(event: any) { }
+  animationStarted(event: any) { }
 }
 
 
