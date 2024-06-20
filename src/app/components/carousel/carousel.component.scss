@@ -51,3 +51,11 @@
 .thumbnails li.is-active {
   border: 2px solid #333;
 }
+
+.thumbnail {
+  transition: transform 0.3s ease;
+}
+
+.thumbnail:hover {
+  transform: scale(1.6); /* Например, увеличение размера при наведении */
+}

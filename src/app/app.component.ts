@@ -15,7 +15,13 @@ export class AppComponent  {
       url: 'assets/pic.png'
     },
     {
+      url: 'assets/nature.jpeg'
+    },
+    {
       url: 'assets/bird.jpeg'
+    },
+    {
+      url: 'assets/nature.jpeg'
     },
     {
       url: 'assets/bird.jpeg'
@@ -27,13 +33,7 @@ export class AppComponent  {
       url: 'assets/bird.jpeg'
     },
     {
-      url: 'assets/bird.jpeg'
-    },
-    {
-      url: 'assets/bird.jpeg'
-    },
-    {
-      url: 'assets/bird.jpeg'
+      url: 'assets/nature.jpeg'
     },
     {
       url: 'assets/bird.jpeg'
@@ -77,16 +77,16 @@ export class AppComponent  {
       url: 'assets/bird.jpeg'
     },
     {
-      url: 'assets/bird.jpeg'
+      url: 'assets/nature.jpeg'
     },
     {
       url: 'assets/bird.jpeg'
     },
     {
-      url: 'assets/bird.jpeg'
+      url: 'assets/nature.jpeg'
     },
     {
-      url: 'assets/bird.jpeg'
+      url: 'assets/nature.jpeg'
     },
   ];
   Animation = Animation
